@@ -1,0 +1,10 @@
+default:
+    context:
+        class: 'FeatureContext'
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: http://sig
+            default_session: selenium2
+            goutte: ~
+            selenium2:
+                wd_host: "http://selenium:4444/wd/hub"

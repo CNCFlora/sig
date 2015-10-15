@@ -1,0 +1,18 @@
+development:
+  couchdb: 'http://couchdb:5984'
+  elasticsearch: 'http://elasticsearch:9200'
+  connect: 'http://connect:8080'
+  connect_url: 'http://localhost:8080'
+  base: ""
+test:
+  couchdb: 'http://couchdb:5984'
+  elasticsearch: 'http://elasticsearch:9200'
+  connect: 'http://connect:8080'
+  connect_url: 'http://localhost:8080'
+  base: ""
+production:
+  couchdb: 'http://couchdb:5984'
+  elasticsearch: 'http://elasticsearch:9200'
+  connect: 'http://connect:80'
+  connect_url: 'http://$HOST/connect'
+  base: "/sig"

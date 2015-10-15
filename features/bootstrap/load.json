@@ -1,0 +1,79 @@
+[
+  {
+    "_id":"taxonx",
+    "metadata": { "type":"taxon" },
+    "family":"Baraceae",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"Bar bar"
+  },
+  {
+    "_id":"taxon0",
+    "metadata": { "type":"taxon" },
+    "family":"Foaceae",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"Foo foo"
+  },
+  {
+    "_id":"taxon1",
+    "metadata": { "type":"taxon" },
+    "family":"Foaceae",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"Foo bar"
+  },
+  {
+    "_id":"taxon2",
+    "metadata": { "type":"taxon" },
+    "family":"Foaceae",
+    "taxonomicStatus":"synonym",
+    "scientificNameWithoutAuthorship":"Foo baz",
+    "accetedNameUsage":"Foo bar"
+  },
+  {
+    "_id":"taxon3",
+    "metadata": { "type":"taxon" },
+    "family":"Foaceae",
+    "taxonomicStatus":"synonym",
+    "scientificNameWithoutAuthorship":"Fuz bar",
+    "acceptedNameUsage":"Foo foo"
+  },
+  {
+    "_id":"prof0",
+    "metadata": { "type":"profile" },
+    "foo":"foo",
+    "taxon": {
+      "scientificNameWithoutAuthorship":"Foo foo"
+    }
+  },
+  {
+    "_id":"prof1",
+    "metadata": { "type":"profile" },
+    "foo":"bar",
+    "taxon": {
+      "scientificNameWithoutAuthorship":"Foo bar"
+    }
+  },
+  {
+    "_id":"prof2",
+    "metadata": { "type":"profile" },
+    "foo":"baz",
+    "taxon": {
+      "scientificNameWithoutAuthorship":"Fuz bar"
+    }
+  },
+  {
+    "_id":"occ1",
+    "metadata": { "type":"occurrence" },
+    "foo":"bar",
+    "taxon": {
+      "scientificNameWithoutAuthorship":"Foo bar"
+    }
+  },
+  {
+    "_id":"occ2",
+    "metadata": { "type":"occurrence" },
+    "foo":"baz",
+    "taxon": {
+      "scientificNameWithoutAuthorship":"Fuz bar"
+    }
+  }
+]

@@ -1,0 +1,51 @@
+sigprod:
+    image: cncflora/apache
+    ports:
+        - 8181:80
+    volumes:
+        - .:/var/www
+    links:
+        - elasticsearch:elasticsearch
+        - connect:connect
+        - couchdb:couchdb
+    environment:
+        - PHP_ENV=test
+elasticsearch:
+    image: cncflora/elasticsearch
+    name: elasticsearch
+    ports:
+        - "9200:9200"
+    volumes:
+        - "/var/data/elasticsearch/data:/usr/share/elasticsearch/data:rw"
+couchdb:
+    image: cncflora/couchdb
+    name: couchdb
+    ports:
+        - 5984:5984
+    volumes:
+        - "/var/data/couchdb:/var/lib/couchdb:rw"
+connect:
+    image: cncflora/connect
+    name: connect
+    ports:
+        - "8080:80"
+    volumes:
+        - "/var/data/connect:/var/floraconnect:rw"
+selenium:
+    image: cncflora/selenium
+    links:
+        - sigprod:sig
+    ports:
+        - 4444
+tester:
+    image: cncflora/apache
+    volumes:
+        - .:/var/www
+    links:
+        - elasticsearch:elasticsearch
+        - couchdb:couchdb
+        - selenium:selenium
+        - sigprod:sig
+    environment:
+        - PHP_ENV=test
+
