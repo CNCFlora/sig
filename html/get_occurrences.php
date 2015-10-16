@@ -6,9 +6,12 @@ include_once 'http.php';
 function get_occurrences($es, $db, $spp) {
     $synonyms = search($es,$db,"taxon","acceptedNameUsage:\"".$spp."*\" AND taxonomicStatus:\"synonym\"");
 
-    $q = '"'.$spp.'*" ';
+    $q = "acceptedNameUsage:\"$spp*\" OR scientificName:\"$spp*\" OR scientificNameWithoutAuthorship: \"$spp*\"";
     foreach($synonyms as $syn) {
-        $q .= " OR \"".$syn->scientificNameWithoutAuthorship."*\"";
+        $spp_syn = $syn->scientificNameWithoutAuthorship;
+        $q .= " OR acceptedNameUsage:\"$spp_syn*\" OR scientificName:\"$spp_syn*\" OR scientificNameWithoutAuthorship:\"$spp_syn*\"";
+        $spp_syn = $syn->scientificName;
+        $q .= " OR acceptedNameUsage:\"$spp_syn*\" OR scientificName:\"$spp_syn*\" OR scientificNameWithoutAuthorship:\"$spp_syn*\"";
     }
     $docs = [];
 
