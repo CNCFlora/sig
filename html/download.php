@@ -137,7 +137,19 @@ foreach ($spp as $specie){
         if($doc->valid == 'true' && $doc->georeferenceVerificationStatus == 'ok') {
             $d->used++;
             foreach($fields as $f) {
+                //Hack because some occurrences don't have acceptedNameUsage,
+                //althought they have scientificName pointing to the correct
+                //specie
+                if ($f == 'acceptedNameUsage') {
+                    if (!isset($doc->$f)) {
+                        $doc->$f = $specie;
+                    }
+                }
                 if(isset($doc->$f)) {
+                    // Keep family uppercase
+                    if ($f == 'family') {
+                        $doc->$f = strtoupper($doc->$f);
+                    }
                     $occ[] = $doc->$f;
                 } else {
                     $occ[] = "";
@@ -158,12 +170,15 @@ foreach ($spp as $specie){
     elseif (count($occurrences) == 0) {
         $msg_warning = $msg_warning."Não foram encontradas ocorrências para a espécie <b>$specie</b>.<br>";
     }
+    elseif ($d->valid == 0 && $d->invalid > 0) {
+        $msg_warning = $msg_warning."Todas as ocorrências para a espécie <b>$specie</b> são inválidas.<br>";
+    }
     else {
         $csv_array = array_merge($csv_array, $row);
     }
 }
 
-if ($can_download && count($csv_array) > 1) {
+if ($can_download && count($csv_array) > 0) {
     //Add header as first row
     $columns = ["id", "family", "specie", "inst_code", "col_code", "catalog_n",
         "recordedby", "record_n", "year", "month", "day", "state", "city",

@@ -72,7 +72,6 @@ window.onload = function() {
       $("#family").html("<option>--</option>");
       get('families.php?db='+$("#src").val(),
         function(families) {
-            console.log(families);
           for(var i=0;i<families.length;i++) {
             $("#family").append("<option value='"+families[i]+"'>"+families[i]+"</option>");
           }

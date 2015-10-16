@@ -1,4 +1,4 @@
-get_sig_information:
+sig:
     image: cncflora/apache
     ports:
         - 8081:80
