@@ -44,3 +44,26 @@ function search($es,$db,$idx,$q) {
   return $arr;
 }
 
+function search_post($es,$db,$idx,$q) {
+  $q = str_replace("=",":",$q);
+  $url = $es.'/'.$db.'/'.$idx.'/_search';
+  $doc = array("query"=>array("query_string"=>array("query"=>$q)));
+  $r = http_post($url, $doc);
+  $arr =array();
+  $ids = [];
+  foreach($r->hits->hits as $hit) {
+      $doc = $hit->_source;
+      if(isset($doc->id) && !isset($doc->_id)) {
+        $doc->_id = $doc->id;
+        unset($doc->id);
+      }
+      if(isset($doc->rev) && !isset($doc->_rev)) {
+        $doc->_rev = $doc->rev;
+        unset($doc->rev);
+      }
+      $arr[] = $doc;
+  }
+
+  return $arr;
+}
+

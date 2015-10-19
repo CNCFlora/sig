@@ -138,7 +138,7 @@ foreach ($spp as $specie){
             $d->used++;
             foreach($fields as $f) {
                 //Hack because some occurrences don't have acceptedNameUsage,
-                //althought they have scientificName pointing to the correct
+                //although they have scientificName pointing to the correct
                 //specie
                 if ($f == 'acceptedNameUsage') {
                     if (!isset($doc->$f)) {

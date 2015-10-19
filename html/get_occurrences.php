@@ -15,7 +15,7 @@ function get_occurrences($es, $db, $spp) {
     }
     $docs = [];
 
-    $hits = search(ELASTICSEARCH,$db,'occurrence',$q);
+    $hits = search_post(ELASTICSEARCH,$db,'occurrence',$q);
     foreach($hits as $hit){
         unset($hit->_rev);
         $docs[]=$hit;
