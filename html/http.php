@@ -47,7 +47,8 @@ function search($es,$db,$idx,$q) {
 function search_post($es,$db,$idx,$q) {
   $q = str_replace("=",":",$q);
   $url = $es.'/'.$db.'/'.$idx.'/_search';
-  $doc = array("query"=>array("query_string"=>array("query"=>$q)));
+  $doc = array("query"=>array("query_string"=>array("query"=>$q)),
+               "size"=>9999);
   $r = http_post($url, $doc);
   $arr =array();
   $ids = [];
