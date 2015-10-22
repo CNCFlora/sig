@@ -27,7 +27,16 @@
 <body>
   <div class="container">
     <h2>Validação SIG</h2>
-      <!--<p class="msg alert alert-success" id="success" style="display:none">Download realizado com sucesso!</p>-->
+    <?php if (!(( isset($_GET["msg_alerta"])  && $_GET["msg_alerta"] != "" ) || (isset($_GET["msg_warning"]) && $_GET["msg_warning"] != ""))): ?>
+    <p class="alert alert-info" align="justify"> <span class="glyphicon glyphicon-info-sign">
+</span>&nbsp;&nbsp;Esta ferramenta foi criada para gerar os arquivos no formato
+CSV das ocorrências necessárias para a elaboração dos mapas. Ela faz uma
+verificação e só exporta os dados se todas as ocorrências da espécie tiverem
+sido validadas pelos especialistas. Caso contrário, a ferramenta não permite o
+download do arquivo CSV e aparece uma mensagem com o tipo de erro. Essa
+ferramenta também faz o download e a conferência das ocorrências para uma família.</p>
+    <?php endif;?>
+
     <?php if( isset($_GET["msg_alerta"])  && $_GET["msg_alerta"] != ""): ?>
       <p class="msg alert alert-danger"><?php echo $_GET["msg_alerta"] ;?></p>
     <?php endif;?>
