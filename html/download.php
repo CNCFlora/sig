@@ -34,6 +34,18 @@ $fields = ["occurrenceID", "family", "acceptedNameUsage", "institutionCode",
     "decimalLongitude", "decimalLatitude", "coordinateUncertaintyInMeters",
     "georeferenceProtocol"];
 
+$precisions_allowed=[
+  "1 a 5 km",
+  "250 a 1000 m",
+  "5 a 10 km",
+  "centroide de municipio",
+  "centroide de uc",
+  "0 a 250 m",
+  "10 a 50 km",
+  "50 a 100 km",
+  "",
+  "1 a 10 km"];
+
 foreach ($spp as $specie){
     // Get occurrence
     $occurrences = get_occurrences(ELASTICSEARCH, $src, $specie);
@@ -51,6 +63,8 @@ foreach ($spp as $specie){
     $data[$specie]->no_sig = 0;
     $data[$specie]->used = 0;
     $data[$specie]->unused = 0;
+    $data[$specie]->precision_ok=0;
+    $data[$specie]->precision_nok=0;
     $row = [];
     $d = $data[$specie];
     //Record per occurrence
@@ -60,6 +74,13 @@ foreach ($spp as $specie){
             if($doc->georeferenceVerificationStatus == "1" || $doc->georeferenceVerificationStatus == "ok") {
                 $doc->georeferenceVerificationStatus = "ok";
                 $d->sig_ok++;
+
+                $f='coordinateUncertaintyInMeters';
+                if(!isset($doc->$f) || is_null($doc->$f) || in_array($doc->$f,$precisions_allowed)) {
+                  $d->precision_ok++;
+                } else {
+                  $d->precision_nok++;
+                }
             } else {
                 $d->sig_nok++;
             }
@@ -172,6 +193,10 @@ foreach ($spp as $specie){
     }
     elseif ($d->valid == 0 && $d->invalid > 0) {
         $msg_warning = $msg_warning."Todas as ocorrências para a espécie <b>$specie</b> são inválidas.<br>";
+    }
+    elseif ($d->precision_nok > 0) {
+        $msg_warning = $msg_warning."Existem ocorrências com precisão fora do padrão.<br />";
+        $can_download = false; // TODO: ??
     }
     else {
         $csv_array = array_merge($csv_array, $row);
