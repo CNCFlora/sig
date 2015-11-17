@@ -22,13 +22,15 @@ else {
     $name = $family."_".$spp;
     $spp = array($spp);
 }
+$name = str_replace(" ","_",str_replace("-","_",$name));
+
 
 $data = [];
 $msg_alerta = "";
 $msg_warning = "";
 $csv_array = array();
 $can_download = true;
-$fields = ["occurrenceID", "family", "acceptedNameUsage", "institutionCode",
+$fields = ["occurrenceID", "specieID","family", "acceptedNameUsage", "institutionCode",
     "collectionCode", "catalogNumber", "recordedBy", "recordNumber", "year",
     "month", "day", "stateProvince", "municipality", "locality",
     "decimalLongitude", "decimalLatitude", "coordinateUncertaintyInMeters",
@@ -69,6 +71,7 @@ foreach ($spp as $specie){
     $d = $data[$specie];
     //Record per occurrence
     foreach($occurrences as $doc) {
+        $doc->specieID = strtoupper( $family )."_".str_Replace(" ","_",str_replace("-","_",$specie));
         $occ = [];
         if(isset($doc->georeferenceVerificationStatus)) {
             if($doc->georeferenceVerificationStatus == "1" || $doc->georeferenceVerificationStatus == "ok") {
@@ -186,7 +189,7 @@ foreach ($spp as $specie){
     if ($d->not_validated > 0) {
         $occ_miss = $d->not_validated;
         $msg_alerta = $msg_alerta."Espécie <b>$specie</b> ainda não foi inteiramente validada. Faltam <b>$occ_miss</b> registros de ocorrência.<br>";
-        $can_download = false;
+        //$can_download = false;
     }
     elseif (count($occurrences) == 0) {
         $msg_warning = $msg_warning."Não foram encontradas ocorrências para a espécie <b>$specie</b>.<br>";
@@ -205,7 +208,7 @@ foreach ($spp as $specie){
 
 if ($can_download && count($csv_array) > 0) {
     //Add header as first row
-    $columns = ["id", "family", "specie", "inst_code", "col_code", "catalog_n",
+    $columns = ["id","specieID", "family", "specie", "inst_code", "col_code", "catalog_n",
         "recordedby", "record_n", "year", "month", "day", "state", "city",
         "locality", "longitude", "latitude", "precision", "protocol"];
     array_unshift($csv_array, $columns);
