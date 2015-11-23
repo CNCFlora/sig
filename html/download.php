@@ -161,13 +161,12 @@ foreach ($spp as $specie){
         if($doc->valid == 'true' && $doc->georeferenceVerificationStatus == 'ok') {
             $d->used++;
             foreach($fields as $f) {
-                //Hack because some occurrences don't have acceptedNameUsage,
-                //although they have scientificName pointing to the correct
-                //specie
+                //Hack because some occurrences don't have the correct
+                //acceptedNameUsage, although they have scientificName
+                //pointing to the correct specie. Always use the searched
+                //specie name
                 if ($f == 'acceptedNameUsage') {
-                    if (!isset($doc->$f)) {
                         $doc->$f = $specie;
-                    }
                 }
                 if(isset($doc->$f)) {
                     // Keep family uppercase
