@@ -15,7 +15,7 @@ window.onload = function() {
             for(var j=0;j<context.roles.length;j++) {
               var role = context.roles[j];
               var role_name = role.role;
-              if(role_name.toLowerCase() == 'sig') {
+              if(role_name.toLowerCase() == 'sig' || role_name.toLowerCase() == 'admin') {
                 logged=true;
               }
             }
