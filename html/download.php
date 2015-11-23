@@ -188,8 +188,8 @@ foreach ($spp as $specie){
     // can't download CSV
     if ($d->not_validated > 0) {
         $occ_miss = $d->not_validated;
-        $msg_alerta = $msg_alerta."Espécie <b>$specie</b> ainda não foi inteiramente validada. Faltam <b>$occ_miss</b> registros de ocorrência.<br>";
-        //$can_download = false;
+        $msg_alerta = $msg_alerta."Espécie <b>$specie</b> ainda não foi inteiramente validada. Falta(m) <b>$occ_miss</b> registro(s) de ocorrência.<br>";
+        $can_download = false;
     }
     elseif (count($occurrences) == 0) {
         $msg_warning = $msg_warning."Não foram encontradas ocorrências para a espécie <b>$specie</b>.<br>";
@@ -198,8 +198,9 @@ foreach ($spp as $specie){
         $msg_warning = $msg_warning."Todas as ocorrências para a espécie <b>$specie</b> são inválidas.<br>";
     }
     elseif ($d->precision_nok > 0) {
-        $msg_warning = $msg_warning."Existem ocorrências com precisão fora do padrão.<br />";
-        $can_download = false; // TODO: ??
+        $occ_precision = $d->precision_nok;
+        $msg_alerta = $msg_alerta."Espécie <b>$specie</b> possui <b>$occ_precision</b> ocorrência(s) com precisão fora do padrão.<br />";
+        $can_download = false;
     }
     else {
         $csv_array = array_merge($csv_array, $row);
