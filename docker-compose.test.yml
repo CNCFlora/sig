@@ -1,7 +1,7 @@
 sigprod:
     image: cncflora/apache
     ports:
-        - 8181:80
+        - 8888:80
     volumes:
         - .:/var/www
     links:
@@ -28,15 +28,17 @@ connect:
     image: cncflora/connect
     name: connect
     ports:
-        - "8080:80"
+        - 80
     volumes:
         - "/var/data/connect:/var/floraconnect:rw"
 selenium:
     image: cncflora/selenium
     links:
         - sigprod:sig
+        - connect:connect
     ports:
-        - 4444
+        - 4444:4444
+        - 5900:5900
 tester:
     image: cncflora/apache
     volumes:
@@ -48,4 +50,3 @@ tester:
         - sigprod:sig
     environment:
         - PHP_ENV=test
-

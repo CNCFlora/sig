@@ -55,7 +55,15 @@ class FeatureContext extends MinkContext {
      * @When /^I click on "([^"]*)"$/
      */
     public function iClickOn($selector) {
-        $this->getMainContext()->getSession()->getPage()->find('css',$selector)->click();
+        $button = $this->getMainContext()->getSession()->getPage()->findButton($selector);
+        $button->press();
+    }
+
+    /**
+     * @When /^I read "([^"]*)"$/
+     */
+    public function iRead($selector) {
+        $this->getMainContext()->getSession()->getPage()->findById($selector);
     }
 
     /**
@@ -115,6 +123,15 @@ class FeatureContext extends MinkContext {
         } else {
             throw new Exception("Response was not JSON\n" . $this->_response->getBody(true));
         }
+    }
+
+    /**
+     * @Given /^I switch to window "([^"]*)"$/
+     */
+    public function iSwitchToWindow($arg1)
+    {
+    $this->getSession()->wait(5000);
+    $this->getSession()->switchToWindow($arg1);
     }
 }
 

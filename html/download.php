@@ -173,7 +173,10 @@ foreach ($spp as $specie){
                     if ($f == 'family') {
                         $doc->$f = strtoupper($doc->$f);
                     }
-                    $occ[] = $doc->$f;
+                    //if ($f == 'decimalLatitude' || $f == 'decimalLongitude') {
+                        //$doc->$f = number_format($doc->$f, 6);
+                    //}
+                    $occ[] = str_replace(";", " ", $doc->$f);
                 } else {
                     $occ[] = "";
                 }
@@ -212,7 +215,8 @@ if ($can_download && count($csv_array) > 0) {
         "recordedby", "record_n", "year", "month", "day", "state", "city",
         "locality", "longitude", "latitude", "precision", "protocol"];
     array_unshift($csv_array, $columns);
-    convert_to_csv($csv_array, "sig_$name.csv", ',');
+    //convert_to_csv($csv_array, "sig_$name.csv", ',');
+    convert_to_csv($csv_array, "sig_$name.csv", ';');
 } else {
     header("Location: index.php?msg_alerta=$msg_alerta&msg_warning=$msg_warning");
 }

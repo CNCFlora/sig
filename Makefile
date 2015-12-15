@@ -22,7 +22,7 @@ stop:
 
 test:
 	docker-compose -p $(project) -f docker-compose.test.yml up -d
-	docker-compose -p $(project) -f docker-compose.test.yml run tester vendor/bin/behat
+	docker-compose -p $(project) -f docker-compose.test.yml run tester vendor/bin/behat features/download.feature
 
 build:
 	docker build -t cncflora/$(project) .

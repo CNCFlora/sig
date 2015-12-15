@@ -38,10 +38,10 @@ ferramenta também faz o download e a conferência das ocorrências para uma fam
     <?php endif;?>
 
     <?php if( isset($_GET["msg_alerta"])  && $_GET["msg_alerta"] != ""): ?>
-      <p class="msg alert alert-danger"><?php echo $_GET["msg_alerta"] ;?></p>
+      <p id="alerta" class="msg alert alert-danger"><?php echo $_GET["msg_alerta"] ;?></p>
     <?php endif;?>
     <?php if( isset($_GET["msg_warning"]) && $_GET["msg_warning"] != ""): ?>
-      <p class="msg alert alert-warning"><?php echo $_GET["msg_warning"] ;?></p>
+      <p id="warning" class="msg alert alert-warning"><?php echo $_GET["msg_warning"] ;?></p>
     <?php endif;?>
     <form id="login">
       <div class='form-group'>
