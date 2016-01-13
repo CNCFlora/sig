@@ -20,7 +20,8 @@
         "cultivated": "no",
         "duplicated": "no"
     },
-    "coordinateUncertaintyInMeters": "5 a 10 km"
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
   },
   {
     "_id":"taxon1",
@@ -42,6 +43,218 @@
         "cultivated": "no",
         "duplicated": "yes"
     },
-    "coordinateUncertaintyInMeters": "5 a 10 km"
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon2",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 02",
+    "acceptedNameUsage":"ACANTHACEAE Specie 02"
+  },
+  {
+    "_id":"occ2",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 02",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference": "valid",
+        "presence": "unknown",
+        "native": "native",
+        "cultivated": "yes",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon3",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 03",
+    "acceptedNameUsage":"ACANTHACEAE Specie 03"
+  },
+  {
+    "_id":"occ3",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 03",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference": "valid",
+        "presence": "unknown",
+        "native": "non-native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon4",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 04",
+    "acceptedNameUsage":"ACANTHACEAE Specie 04"
+  },
+  {
+    "_id":"occ4",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 04",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference": "valid",
+        "presence": "absent",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon5",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 05",
+    "acceptedNameUsage":"ACANTHACEAE Specie 05"
+  },
+  {
+    "_id":"occ5",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 05",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference":"invalid" ,
+        "presence": "present",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon6",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 06",
+    "acceptedNameUsage":"ACANTHACEAE Specie 06"
+  },
+  {
+    "_id":"occ6",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 06",
+    "validation": {
+        "taxonomy": "invalid",
+        "georeference":"valid" ,
+        "presence": "present",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10 km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon7",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 07",
+    "acceptedNameUsage":"ACANTHACEAE Specie 07"
+  },
+  {
+    "_id":"occ7",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 07",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference":"valid" ,
+        "presence": "present",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "coordinateUncertaintyInMeters": "5 a 10km",
+    "georeferenceVerificationStatus": "ok"
+  },
+  {
+    "_id":"taxon8",
+    "metadata": { "type":"taxon" },
+    "family":"BROMELIACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"BROMELIACEAE Specie 01",
+    "acceptedNameUsage":"BROMELIACEAE Specie 01"
+  },
+  {
+    "_id":"occ8",
+    "metadata": { "type":"occurrence" },
+    "family": "BROMELIACEAE",
+    "scientificNameWithoutAuthorship":"BROMELIACEAE Specie 01"
+  },
+  {
+    "_id":"taxon9",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 08",
+    "acceptedNameUsage":"ACANTHACEAE Specie 08"
+  },
+  {
+    "_id":"occ9",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 08",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference":"valid" ,
+        "presence": "present",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    }
+  },
+  {
+    "_id":"taxon10",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 09",
+    "acceptedNameUsage":"ACANTHACEAE Specie 09"
+  },
+  {
+    "_id":"occ10",
+    "metadata": { "type":"occurrence" },
+    "family": "ACANTHACEAE",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 09",
+    "validation": {
+        "taxonomy": "valid",
+        "georeference":"valid" ,
+        "presence": "present",
+        "native": "native",
+        "cultivated": "no",
+        "duplicated": "no"
+    },
+    "georeferenceVerificationStatus": "nok"
+  },
+  {
+    "_id":"taxon11",
+    "metadata": { "type":"taxon" },
+    "family":"ACANTHACEAE",
+    "taxonomicStatus":"accepted",
+    "scientificNameWithoutAuthorship":"ACANTHACEAE Specie 10",
+    "acceptedNameUsage":"ACANTHACEAE Specie 10"
   }
 ]

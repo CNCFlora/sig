@@ -86,13 +86,16 @@ foreach ($spp as $specie){
                 }
             } else {
                 $d->sig_nok++;
+                $doc->valid = 'false';
+
             }
         } else {
             $d->no_sig++;
             $doc->georeferenceVerificationStatus = '';
+            $doc->valid = "";
         }
 
-        if(isset($doc->validation)) {
+        if(isset($doc->validation) && (!isset($doc->valid))) {
             if(is_object($doc->validation)) {
                 if(isset($doc->validation->status)) {
                     if($doc->validation->status == "valid") {
@@ -145,7 +148,10 @@ foreach ($spp as $specie){
                 $doc->valid = "";
             }
         } else {
-            $doc->valid = "";
+            if (!isset($doc->valid)) {
+                $doc->valid = "";
+
+            }
         }
 
         if($doc->valid == 'true') {
