@@ -1,4 +1,5 @@
-<?php include 'config.php' ?><!DOCTYPE HTML>
+<?php include 'config.php';
+session_start(); ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,12 +23,22 @@
         content:"*";
         color:red;
     }
-  </style>
+ .panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+} </style>
 </head>
 <body>
   <div class="container">
     <h2>Validação SIG</h2>
-    <?php if (!(( isset($_GET["msg_alerta"])  && $_GET["msg_alerta"] != "" ) || (isset($_GET["msg_warning"]) && $_GET["msg_warning"] != ""))): ?>
+    <?php if (!(( isset($_SESSION["msg_alerta"])  && $_SESSION["msg_alerta"] != "" ) || (isset($_SESSION["msg_warning"]) && $_SESSION["msg_warning"] != ""))): ?>
     <p class="alert alert-info" align="justify"> <span class="glyphicon glyphicon-info-sign">
 </span>&nbsp;&nbsp;Esta ferramenta foi criada para gerar os arquivos no formato
 CSV das ocorrências necessárias para a elaboração dos mapas. Ela faz uma
@@ -37,11 +48,41 @@ download do arquivo CSV e aparece uma mensagem com o tipo de erro. Essa
 ferramenta também faz o download e a conferência das ocorrências para uma família.</p>
     <?php endif;?>
 
-    <?php if( isset($_GET["msg_alerta"])  && $_GET["msg_alerta"] != ""): ?>
-      <p id="alerta" class="msg alert alert-danger"><?php echo $_GET["msg_alerta"] ;?></p>
+    <?php if(( isset($_SESSION["msg_alerta"])  && $_SESSION["msg_alerta"] != "") || ( isset($_SESSION["msg_warning"]) && $_SESSION["msg_warning"] != "")): ?>
+        <div class="panel-group msg" id="accordion">
     <?php endif;?>
-    <?php if( isset($_GET["msg_warning"]) && $_GET["msg_warning"] != ""): ?>
-      <p id="warning" class="msg alert alert-warning"><?php echo $_GET["msg_warning"] ;?></p>
+    <?php if( isset($_SESSION["msg_alerta"])  && $_SESSION["msg_alerta"] != ""): ?>
+            <div class="panel alert alert-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Alertas impeditivos para download</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body msg">
+                        <p id="alerta"><?php echo $_SESSION["msg_alerta"] ;?></p>
+                    </div>
+                </div>
+            </div>
+            <?php unset($_SESSION['msg_alerta']); $set_div = true;?>
+    <?php endif;?>
+    <?php if( isset($_SESSION["msg_warning"]) && $_SESSION["msg_warning"] != ""): ?>
+            <div class="panel alert alert-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Alertas</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body msg">
+                        <p id="warning"><?php echo $_SESSION["msg_warning"] ;?></p>
+                    </div>
+                </div>
+            </div>
+            <?php unset($_SESSION['msg_warning']); $set_div=true;?>
+    <?php endif;?>
+    <?php if (isset($set_div) && $set_div == true):?>
+        </div>
     <?php endif;?>
     <form id="login">
       <div class='form-group'>
@@ -55,8 +96,8 @@ ferramenta também faz o download e a conferência das ocorrências para uma fam
           <label for="src" class="control-label">Recorte</label>
           <select id="src" name="src" class='form-control'></select>
         </div>
-        <div class="form-group required">
-          <label for="family" class="control-label">Família</label>
+        <div class="form-group">
+          <label for="family" class="control-label">Família (deixe em branco para todas as famílias)</label>
           <select id="family" name="family" class='form-control'></select>
         </div>
         <div class="form-group">

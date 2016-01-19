@@ -4,23 +4,43 @@ include 'config.php';
 include 'http.php';
 include 'get_occurrences.php';
 include 'save.php';
+include 'get_species.php';
 
+session_start();
+$whole_src = false;
 $src = $_POST["src"];
 $family = $_POST["family"];
-$spp = trim( $_POST["spp"] );
+if (isset($_POST["spp"])){
+    $spp = trim( $_POST["spp"] );
+}
 
-if(strlen( $src ) <= 3 || strlen($family) <= 3) {
+//if(strlen( $src ) <= 3 || strlen($family) <= 3) {
+if(strlen( $src ) <= 3) {
     header("Location: index.php?msg_alerta=Nada selecionado");
   return;
 }
+// Add the official family name to array (not the one in the occurrence)
+$family_spp = array();
 
-if (is_array(json_decode($spp))){
+if (is_array(json_decode($family))){
+    $family = json_decode($family);
+    $name = $src;
+    $spp = array();
+    foreach ($family as $family_item){
+        $spp_fam = get_species($src, $family_item);
+        $spp = array_merge($spp, $spp_fam);
+        $family_array = array_fill(0, sizeof($spp_fam), $family_item);
+        $family_spp = array_merge($family_spp, $family_array);
+    }
+} elseif (is_array(json_decode($spp))){
     $spp = json_decode($spp);
+    $family_spp = array_fill(0, sizeof($spp), $family);
     $name = $family;
 }
 else {
     $name = $family."_".$spp;
     $spp = array($spp);
+    array_push($family_spp, $family);
 }
 $name = str_replace(" ","_",str_replace("-","_",$name));
 
@@ -48,13 +68,17 @@ $precisions_allowed=[
   "",
   "1 a 10 km"];
 
-foreach ($spp as $specie){
+foreach ($spp as $index=>$specie){
+    //print_r($index);
+    //print_r($specie);
+    //print_r($family_spp[$index]);
     // Get occurrence
     $occurrences = get_occurrences(ELASTICSEARCH, $src, $specie);
     // Record per specie
     $data[$specie]= new StdClass;
     $data[$specie]->acceptedNameUsage = $specie;
-    $data[$specie]->family = $family;
+    //$data[$specie]->family = $family;
+    $data[$specie]->family = $family_spp[$index];
     $data[$specie]->total = 0;
     $data[$specie]->valid = 0;
     $data[$specie]->invalid = 0;
@@ -71,7 +95,7 @@ foreach ($spp as $specie){
     $d = $data[$specie];
     //Record per occurrence
     foreach($occurrences as $doc) {
-        $doc->specieID = strtoupper( $family )."_".str_Replace(" ","_",str_replace("-","_",$specie));
+        $doc->specieID = strtoupper( $family_spp[$index] )."_".str_Replace(" ","_",str_replace("-","_",$specie));
         $occ = [];
         if(isset($doc->georeferenceVerificationStatus)) {
             if($doc->georeferenceVerificationStatus == "1" || $doc->georeferenceVerificationStatus == "ok") {
@@ -224,5 +248,8 @@ if ($can_download && count($csv_array) > 0) {
     //convert_to_csv($csv_array, "sig_$name.csv", ',');
     convert_to_csv($csv_array, "sig_$name.csv", ';');
 } else {
-    header("Location: index.php?msg_alerta=$msg_alerta&msg_warning=$msg_warning");
+    $_SESSION['msg_alerta'] = $msg_alerta;
+    $_SESSION['msg_warning'] = $msg_warning;
+    session_write_close();
+    header("Location: index.php");
 }

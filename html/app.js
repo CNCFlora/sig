@@ -69,9 +69,10 @@ window.onload = function() {
 
   $("#src").change(function(){
       $("#family").parent().show();
-      $("#family").html("<option>--</option>");
+      $("#download").parent().show();
       get('families.php?db='+$("#src").val(),
         function(families) {
+            $("#family").html("<option value='"+JSON.stringify(families)+"'>--</option>");
           for(var i=0;i<families.length;i++) {
             $("#family").append("<option value='"+families[i]+"'>"+families[i]+"</option>");
           }
