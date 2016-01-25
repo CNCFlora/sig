@@ -16,7 +16,10 @@ if (isset($_POST["spp"])){
 
 //if(strlen( $src ) <= 3 || strlen($family) <= 3) {
 if(strlen( $src ) <= 3) {
-    header("Location: index.php?msg_alerta=Nada selecionado");
+    $msg_alerta = "Nada selecionado";
+    $_SESSION['msg_alerta'] = $msg_alerta;
+    session_write_close();
+    header("Location: index.php");
   return;
 }
 // Add the official family name to array (not the one in the occurrence)
@@ -117,6 +120,12 @@ foreach ($spp as $index=>$specie){
             $d->no_sig++;
             $doc->georeferenceVerificationStatus = '';
             $doc->valid = "";
+        }
+
+        // Recorte Pan Bacia Alto Tocantins has verbatimValidation field
+        // instead of validation
+        if (isset($doc->verbatimValidation) && !isset($doc->validation)) {
+            $doc->validation = $doc->verbatimValidation;
         }
 
         if(isset($doc->validation) && (!isset($doc->valid))) {
